@@ -3,10 +3,10 @@
 #include <time.h>
 #include <math.h>
 
-#define L 10    // the size of the lattice
+#define L 20    // the size of the lattice
 #define J 1     // the coupling constant
 #define kB 1    // the Boltzmann constant
-#define T 1     // the temperature
+#define T 10     // the temperature
 #define steps 10000 // the number of Monte Carlo steps
 
 
@@ -57,22 +57,29 @@ void flip_spin(int spins[L][L], double * energy, double * magnetization)
     }
 }
 
+// Function to print the current spin configuration
+void print_grid(int spins[L][L],)
+{
+    // Move cursor to top-left corner of console
+    printf("\033[1;1H");
 
-void print_grid(int spins[L][L]) {
-    int spin;
+    // Move cursor down one line from where the command was entered
+    //printf("\033[1E");
+
+   
+
     for (int i = 0; i < L; i++) {
         for (int j = 0; j < L; j++) {
-            spin = spins[i][j];
-            if (spin == -1) {
-                printf("%d ", spin);
-                //printf(" _ ");
+            if (spins[i][j] == 1) {
+                printf("\033[31m+\033[0m ");
             } else {
-                printf(" %d ", spin);
-                //printf(" @ ");
+                printf("\033[34m-\033[0m ");
             }
         }
         printf("\n");
     }
+    
+    fflush(stdout); // Flush output buffer to ensure characters are printed immediately
 }
 
 int main() 
@@ -99,18 +106,17 @@ int main()
     }
     E = energy(spins);
 
-    print_grid(spins);
+
+    // Clear the screen and move the cursor to the top-left corner of the console
+    printf("\033[2J");
+
     // run the Monte Carlo simulation
     for (int step = 0; step < steps; step ++) {
         flip_spin(spins, &E, &M);
+        print_grid(spins);
     }
-    printf("\n");
-    print_grid(spins);
+    //printf("\n");
 
-
-    // print the results
-    printf("Energy: %f\n", E);
-    printf("Magnetization %f\n", M);
-    printf("Magnetization per spin: %f\n", M / (L*L));
+    
     return 0;
 }
