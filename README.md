@@ -1,1 +1,1 @@
-simple Ising model simulation implememted in C
+simple Ising model simulation implemented in C
