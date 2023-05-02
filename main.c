@@ -3,10 +3,10 @@
 #include <time.h>
 #include <math.h>
 
-#define L 20    // the size of the lattice
+#define L 40    // the size of the lattice
 #define J 1     // the coupling constant
 #define kB 1    // the Boltzmann constant
-#define T 10     // the temperature
+#define T 2.27     // the temperature
 #define steps 10000 // the number of Monte Carlo steps
 
 
@@ -58,7 +58,7 @@ void flip_spin(int spins[L][L], double * energy, double * magnetization)
 }
 
 // Function to print the current spin configuration
-void print_grid(int spins[L][L],)
+void print_grid(int spins[L][L])
 {
     // Move cursor to top-left corner of console
     printf("\033[1;1H");
@@ -108,11 +108,14 @@ int main()
 
 
     // Clear the screen and move the cursor to the top-left corner of the console
-    printf("\033[2J");
+    //printf("\033[2J");
 
     // run the Monte Carlo simulation
     for (int step = 0; step < steps; step ++) {
-        flip_spin(spins, &E, &M);
+        for (int i =0; i < 10; i++) {
+            flip_spin(spins, &E, &M);
+        }
+        
         print_grid(spins);
     }
     //printf("\n");

@@ -1,0 +1,1 @@
+simple Ising model simulation implememted in C
